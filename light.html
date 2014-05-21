@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- Step1 -->
+    <script src="js/esl.js" type="text/javascript"></script>
+</head>
+<body>
+    <!-- Step2: Prepare a Dom which must have width and height -->
+    <div id="main" style="height:400px; width:1000px; 1px solid #ccc; padding: 10px;"></div>
+    <script type="text/javascript" language="javascript">
+        require.config({
+            paths:{
+                echarts: './js/echarts',
+                'echarts/chart/map': './js/echarts-map'
+            }
+        });
+        require(
+            [
+                'echarts',
+                'echarts/chart/map'
+            ],
+             function(ec) {
+            
+            var effect = {
+    show: true,
+    scaleSize: require('zrender/tool/env').canvasSupported ? 1 : 2,
+    period: 30,             // 
+    color: '#fff',
+    shadowColor: 'rgba(220,220,220,0.8)',
+    shadowBlur : 15 
+};
+function itemStyle(idx) {
+    return {
+        normal: {
+            color:'#fff',
+            borderWidth:1,
+            borderColor:['rgba(30,144,255,1)','lime'][idx],
+            lineStyle: {
+                type: 'solid',
+                shadowColor : ['rgba(30,144,255,1)','lime'][idx], //
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0
+            }
+        }
+    }
+};
+            var myChart = ec.init(document.getElementById('main'));
+                    var option = {
+    backgroundColor: '#1b1b1b',
+    color: ['rgba(30,144,255,1)','lime'],
+    title : {
+        text: 'Top 15 busiest air route in the world by 2012',
+        subtext:'data from the economist',
+        sublink: 'http://www.economist.com/blogs/graphicdetail/2012/05/daily-chart-8',
+        x:'center',
+        textStyle : {
+            color: '#fff'
+        }
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: function(v) {
+            return v[1].replace(':', ' > ');
+        }
+    },
+    legend: {
+        orient: 'vertical',
+        x:'left',
+        selectedMode:'single',
+        data:['air routes'],
+        textStyle : {
+            color: '#fff'
+        }
+    },
+    toolbox: {
+        show : true,
+        orient : 'vertical',
+        x: 'right',
+        y: 'center',
+        feature : {
+            dataView : {show: true, title: 'data view',readOnly: false},
+            restore : {show: true, title: 'restore'},
+            saveAsImage : {show: true, title:'save as image'}
+        }
+    },
+    series : [
+        {
+            name: 'air route',
+            type: 'map',
+            roam: true,
+            hoverable: false,
+            mapType: 'world',
+            itemStyle:{
+                normal:{
+                    borderColor:'rgba(100,149,237,1)',
+                    borderWidth:0.5,
+                    areaStyle:{
+                        color: '#1b1b1b'
+                    }
+                }
+            },
+            data:[],
+            markLine : {
+                symbol: ['circle', 'circle'],  
+                symbolSize : 1,
+                effect : effect,
+                itemStyle : itemStyle(1),
+                smooth:true,
+                data : [
+                    [{name:'Jeju'}, {name:'Seoul'}],
+                    
+                    [{name:'Rio de Janeiro'}, {name:'Sao Paulo'}],
+                    [{name:'Osaka'}, {name:'Tokyo'}],
+                    [{name:'Sapporo'}, {name:'Tokyo'}],
+                    [{name:'Fukuoka'}, {name:'Tokyo'}],
+                    [{name:'Melbourne'}, {name:'Sydney'}],
+                    [{name:'Beijing'}, {name:'Shanghai'}],
+                    [{name:'Hongkong'}, {name:'Taipei'}],
+                    [{name:'Cape Town'}, {name:'Johannesburg'}],
+                    [{name:'Mumbai'}, {name:'Delhi'}],
+                    [{name:'Brisbane'}, {name:'Sydney'}],
+                    [{name:'Shanghai'}, {name:'Shenzhen'}],
+                    [{name:'Naha'}, {name:'Tokyo'}],
+                    
+                    [{name:'Beijing'}, {name:'Chengdu'}],
+                    [{name:'Beijing'}, {name:'Guangzhou'}]
+                ]
+                    },
+            geoCoord: {
+                'Jeju':[126.5312,33.4996],
+                'Seoul':[126.9780,37.5665],
+                'Beijing':[116.4075,39.9040],
+                'Chengdu':[104.0665,30.5723],
+                'Shenzhen':[114.0579,22.5431],
+                'Guangzhou':[113.2644,23.1292],
+                'Naha':[127.6792,26.2123],
+                'Tokyo':[139.6917,35.6895],
+                'Hongkong':[114.1095,22.3964],
+                'Taipei':[121.5598,25.0911],
+                'Brisbane':[153.0234,-27.4710],
+                'Sydney':[151.2070,-33.8675],
+                'Mumbai':[72.8777,19.0760],
+                'Delhi':[77.2250,28.6353],
+                'Cape Town':[18.4241,-33.9249],
+                'Johannesburg':[28.0473,-26.2041],
+                'Melbourne':[144.9633,-37.8141],
+                'Fukuoka':[130.4017,33.5903],
+                'Sapporo':[141.3544,43.0621],
+                'Osaka':[135.5022,34.6937],
+                'Rio de Janeiro':[-43.1971,-22.9083],
+                'Sao Paulo':[-46.6333,-23.5505],
+                'Shanghai':[121.4737,31.2304]
+            }
+        }
+    ]
+};
+                    myChart.setOption(option)
+                }
+        );
+        </script>
+    </body>

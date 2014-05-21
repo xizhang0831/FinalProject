@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- Step1 -->
+    <script src="js/esl.js" type="text/javascript"></script>
+</head>
+<body>
+    <!-- Step2: Prepare a Dom which must have width and height -->
+<div>
+    <div id="main" style="height:400px; width:1000px; 1px solid #ccc; padding: 10px;"></div>
+    <div id="main2" style="height:400px; width:1000px; 1px solid #ccc; padding: 10px;"></div>
+</div>
+    <script type="text/javascript" language="javascript">
+        require.config({
+            paths:{
+                'echarts' : './js/echarts',
+                'echarts/chart/bar' : '.js/echarts',
+                'echarts/chart/line' : '.js/echarts',
+                'echarts/chart/pie' : '.js/echarts'
+            }
+        });
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line',
+                'echarts/chart/pie'
+            ],
+            function(ec) {
+                var myChart = ec.init(document.getElementById('main'));
+                
+                var option = {
+                    title : {
+                        subtext: 'Data from UN',
+                        sublink: 'http://esa.un.org/wpp/Excel-Data/population.htm',
+                        x: 'center',
+                        y: 'bottom'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show : true,
+                        y: 'bottom',
+                        feature : {
+                            dataView : {show: true, title:'data view',readOnly: false},
+                            magicType : {show: true, title:{line:'line',bar:'bar',stack:'stack',tile:'tiled'},type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: true,title:'restore'},
+                            saveAsImage : {show: true,title:'save as image'}
+                        }
+                    },
+                    calculable : true,
+                    legend: {
+                        data:['Africa','Asia','Europe','Latin America','Northern America','Oceania']
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            splitLine : {show : false},
+                            data : ['2005','2006','2007','2008','2009','2010']
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            position: 'right',
+                            splitArea : {show: true}
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'Africa',
+                            type:'bar',
+                            data:[911528,934079,957318,981243,1005838,1031084]
+                        },
+                        {
+                            name:'Asia',
+                            type:'bar',
+                            data:[3942882,3987509,4032014,4076463,4120930,4165440]
+                        },
+                        {
+                            name:'Europe',
+                            type:'bar',
+                            data:[732970,734361,735929,737546,739047,740308]
+                        },
+                        {
+                            name:'Latin America',
+                            type:'bar',
+                            data:[562546,569400,576136,582806,589476,596191]
+                        },
+                        {
+                            name:'Northern America',
+                            type:'bar',
+                            data:[330546,333681,336900,340154,343372,346501]
+                        },
+                         {
+                            name:'Oceania',
+                            type:'bar',
+                            data:[33623,34198,34808,35437,36059,36659]
+                        },
+                        {
+                            name:'World',
+                            type:'line',
+                            data:[6514095,6593228,6673106,6753649,6834722,6916183]
+                        }
+                    ]
+                };
+                
+                myChart.setOption(option);
+            }
+        );
+        </script>
+    <script type="text/javascript" language="javascript">
+        require.config({
+            paths:{
+                'echarts' : './js/echarts',
+                'echarts/chart/bar' : '.js/echarts',
+                'echarts/chart/line' : '.js/echarts',
+                'echarts/chart/pie' : '.js/echarts'
+            }
+        });
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line',
+                'echarts/chart/pie'
+            ],
+            function(ec2) {
+                var myChart2 = ec2.init(document.getElementById('main2'));
+                
+                var option2 = {
+                   calculable : true,
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show : true,
+                        y: 'bottom',
+                        feature : {
+                            dataView : {show: true, title:'data view',readOnly: false},
+                            restore : {show: true,title:'restore'},
+                            saveAsImage : {show: true,title:'save as image'}
+                        }
+                    },
+                    yAxis : [
+                        {
+                            type : 'value',
+                            position: 'right',
+                            splitArea : {show: true}
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'World Population 2010',
+                            type:'pie',
+                            tooltip : {
+                                trigger: 'item',
+                                formatter: '{a} <br/>{b} : {c} ({d}%)'
+                            },
+                            center: [400,220],
+                            radius : [0, 60],
+                            startAngle: 55,
+                            itemStyle : {
+                                normal : {
+                                    labelLine : {
+                                        length : 20
+                                    }
+                                }
+                            },
+                            data:[
+                                {value:342595, name:'Eastern Africa'},
+                                {value:124978, name:'Middle Africa'},
+                                {value:199620, name:'Northern Africa'},
+                                {value:58803, name:'Southern Africa'},
+                                {value:305088, name:'Western Africa'},
+                                {value:1593571, name:'Eastern Asia'},
+                                {value:1743101, name:'South-Central Asia'},
+                                {value:61694, name:'Central Asia'},
+                                {value:1681407, name:'Southern Asia'},
+                                {value:597097, name:'South-Eastern Asia'},
+                                {value:231671, name:'Western Asia'},
+                                {value:296183, name:'Eastern Europe'},
+                                {value:98795, name:'Northern Europe'},
+                                {value:154712, name:'Southern Europe'},
+                                {value:190618, name:'Western Europe'},
+                                {value:41625, name:'Caribbean'},
+                                {value:160546, name:'Central America'},
+                                {value:394021, name:'South America'},
+                                {value:346501, name:'Northern America'},
+                                {value:26773, name:'Australia/NewZealand'},
+                                {value:8729, name:'Melanesia'},
+                                {value:498, name:'Micronesia'},
+                                {value:660, name:'Polynesia'},
+                            ]
+                        }
+                      ]
+                   };
+
+                  myChart2.setOption(option2);
+                }
+              );
+          
+           </script>                 
+    </body>
